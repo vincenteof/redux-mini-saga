@@ -7,7 +7,7 @@ function channel() {
     takers.push(taker)
   }
 
-  function put(pattern: string, args: any[]) {
+  function put(pattern: string, args: any) {
     if (pattern.length === 0) {
       return
     }

@@ -1,4 +1,7 @@
-export function take(pattern: string) {
+import { TakeEffect, PutEffect } from './types'
+import { AnyAction } from '@reduxjs/toolkit'
+
+export function take(pattern: string): TakeEffect {
   return {
     isEffect: true,
     type: 'take',
@@ -6,7 +9,7 @@ export function take(pattern: string) {
   }
 }
 
-export function put(action: any) {
+export function put(action: AnyAction): PutEffect {
   return {
     isEffect: true,
     type: 'put',

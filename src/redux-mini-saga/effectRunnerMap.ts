@@ -1,13 +1,15 @@
 import channel from './channel'
+import { TakeEffect, PutEffect, NextFunc } from './types'
+import { Store } from '@reduxjs/toolkit'
 
-function runTakeEffect({ pattern }, next) {
+function runTakeEffect({ pattern }: TakeEffect, next: NextFunc) {
   channel.take({
     pattern,
-    cb: args => next(undefined, args)
+    cb: (args: any) => next(undefined, args),
   })
 }
 
-function runPutEffect({ action }, next, store) {
+function runPutEffect({ action }: PutEffect, next: NextFunc, store: Store) {
   const { dispatch } = store
   dispatch(action)
   next()
@@ -16,4 +18,4 @@ function runPutEffect({ action }, next, store) {
 export default {
   take: runTakeEffect,
   put: runPutEffect,
-};
+}
