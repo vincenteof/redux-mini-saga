@@ -1,5 +1,6 @@
-import { TakeEffect, PutEffect } from './types'
+import { TakeEffect, PutEffect, CallEffect } from './types'
 import { AnyAction } from '@reduxjs/toolkit'
+import { AnyFunc } from './types'
 
 export function take(pattern: string): TakeEffect {
   return {
@@ -14,5 +15,14 @@ export function put(action: AnyAction): PutEffect {
     isEffect: true,
     type: 'put',
     action,
+  }
+}
+
+export function call(fn: AnyFunc, ...args: any[]): CallEffect {
+  return {
+    isEffect: true,
+    type: 'call',
+    fn,
+    args,
   }
 }

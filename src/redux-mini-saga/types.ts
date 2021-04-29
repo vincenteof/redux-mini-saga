@@ -1,4 +1,4 @@
-import { Dispatch, AnyAction } from '@reduxjs/toolkit'
+import { AnyAction } from '@reduxjs/toolkit'
 
 export type Taker = {
   pattern: string
@@ -7,7 +7,9 @@ export type Taker = {
 
 export type Saga = GeneratorFunction
 
-export type EffectType = 'take' | 'put'
+export type AnyFunc = (...args: any[]) => any
+
+export type EffectType = 'take' | 'put' | 'call'
 
 export type EffectBase = {
   isEffect: true
@@ -24,6 +26,12 @@ export type PutEffect = EffectBase & {
   action: AnyAction
 }
 
+export type CallEffect = EffectBase & {
+  type: 'call'
+  fn: (...args: any[]) => any
+  args: any[]
+}
+
 export type NextFunc = (err?: Error, pre?: any) => void
 
-export type Effect = TakeEffect | PutEffect
+export type Effect = TakeEffect | PutEffect | CallEffect
