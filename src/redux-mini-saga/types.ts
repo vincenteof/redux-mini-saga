@@ -9,7 +9,7 @@ export type Saga = GeneratorFunction
 
 export type AnyFunc = (...args: any[]) => any
 
-export type EffectType = 'take' | 'put' | 'call'
+export type EffectType = 'take' | 'put' | 'call' | 'fork' | 'takeEvery'
 
 export type EffectBase = {
   isEffect: true
@@ -28,10 +28,27 @@ export type PutEffect = EffectBase & {
 
 export type CallEffect = EffectBase & {
   type: 'call'
-  fn: (...args: any[]) => any
+  fn: AnyFunc
   args: any[]
+}
+
+export type ForkEffect = EffectBase & {
+  type: 'fork'
+  fn: AnyFunc
+  args: any[]
+}
+
+export type TakeEveryEffect = EffectBase & {
+  type: 'takeEvery'
+  pattern: string
+  saga: Saga
 }
 
 export type NextFunc = (err?: Error, pre?: any) => void
 
-export type Effect = TakeEffect | PutEffect | CallEffect
+export type Effect =
+  | TakeEffect
+  | PutEffect
+  | CallEffect
+  | ForkEffect
+  | TakeEveryEffect
