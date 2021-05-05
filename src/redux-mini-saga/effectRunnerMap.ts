@@ -31,6 +31,7 @@ function runCallEffect({ fn, args }: CallEffect, next: NextFunc) {
       .then((value) => next(undefined, value))
       .catch((err) => next(err, undefined))
   } else if (isGenerator(fnRet)) {
+    // todo: error handling
     let temp = fnRet.next()
     while (!temp.done) {
       temp = fnRet.next(temp.value)
